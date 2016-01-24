@@ -1,0 +1,4 @@
+name "autoloader"
+description "An automatic class-loader for D."
+copyright "Copyright © 2016, Mihail K"
+authors "Mihail-K"
