@@ -56,9 +56,8 @@ public:
     }
 
     /++
-     + Tries to load a class given by name, searching through the registered paths.
-     + This function does not cache located classes, hence the lookup is performed
-     + for every call.
+     + Tries to load a class given by name. This function does not cache located
+     + classes, hence the lookup is performed for every call.
      +
      + Returns:
      +   The ClassInfo object of the class given by name, or null if not found.
