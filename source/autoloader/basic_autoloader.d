@@ -2,6 +2,7 @@
 module autoloader.basic_autoloader;
 
 import autoloader.base;
+import autoloader.util;
 
 import std.algorithm;
 import std.conv;
@@ -54,11 +55,22 @@ public:
      + This function does not cache located classes, hence the lookup is performed
      + for every call.
      +
+     + Classes are assumed to exist in a module that shares the name of the class,
+     + but is represented as lower_snake_case.
+     +
      + Returns:
      +   The ClassInfo object of the class given by name, or null if not found.
      ++/
     override const(ClassInfo) lookup(string name)
     {
+        // Check modules named after the class.
+        foreach(path; [""].chain(searchPaths))
+        {
+            auto result = ClassInfo.find(join(basePath, path, name.toSnakeCase, name));
+            if(result !is null) return result;
+        }
+
+        // Check the search paths directly.
         foreach(path; [""].chain(searchPaths))
         {
             auto result = ClassInfo.find(join(basePath, path, name));
